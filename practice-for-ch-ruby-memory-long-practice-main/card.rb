@@ -26,6 +26,10 @@ class Card #AKQJ
         @face_value == card_2.to_s
     end
 
+    def cheat
+        @face_value
+    end
+
 end 
 
 c1 = Card.new(true, 'A')
