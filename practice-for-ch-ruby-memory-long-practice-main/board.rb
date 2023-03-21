@@ -27,6 +27,11 @@ class Board
             false
         end
     end
+    
+    def [](pos)
+        a,b = pos
+        @grid[a][b].face_up
+    end
 
     def gen_pos
         a = rand(0..3)
@@ -85,7 +90,6 @@ class Board
             end
         end
 
-        self.normal_print
     end
 
     def won?
@@ -110,6 +114,11 @@ class Board
             card.hide
             card.cheat
         end
+    end
+
+    def value(pos)
+        a,b = pos
+        @grid[a][b].cheat
     end
 
 

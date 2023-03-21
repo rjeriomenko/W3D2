@@ -32,7 +32,3 @@ class Card
     end
 
 end 
-
-c1 = Card.new(true, 'A')
-c2 = Card.new(true, 'B')
-p c1 == c2
