@@ -1,24 +1,24 @@
-class Card
+class Card #AKQJ
     
-    def initialize(face, face_value)
-        @face = face
+    def initialize(face_up=false, face_value)
+        @face_up = face_up
         @face_value = face_value
     end
 
     def hide
-        @face = 'face_down'
+        @face_up = true
     end
 
 
     def reveal
-        @face = 'face_up'
+        @face_up = false
     end
 
     def to_s
-        if @face == 'face_up'
+        if @face_up == true
             @face_value
         else
-            puts 'card not revealed'
+            puts 'card not revealed' ##not printing with ==
         end
     end
 
@@ -28,6 +28,6 @@ class Card
 
 end 
 
-c1 = Card.new('face_up', '3D')
-c2 = Card.new('face_up', '4D')
+c1 = Card.new(true, 'A')
+c2 = Card.new(true, 'B')
 p c1 == c2
