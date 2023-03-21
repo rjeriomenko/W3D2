@@ -1,6 +1,6 @@
 class Card #AKQJ
     
-    def initialize(face_up=false, face_value)
+    def initialize(face_value, face_up=false)
         @face_up = face_up
         @face_value = face_value
     end
