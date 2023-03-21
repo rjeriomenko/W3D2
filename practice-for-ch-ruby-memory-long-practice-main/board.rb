@@ -3,6 +3,7 @@ require_relative "card"
 class Board
     def initialize
         @grid = Array.new(4) { Array.new(4) }
+        self.populate
     end
 
     def scan?(face_value)
@@ -10,17 +11,6 @@ class Board
             row.any? {|card| card != nil && card.cheat == face_value}
         end
     end
-
-    # def count(face_value)
-    #     count = 0
-    #     @grid.each do |row|
-    #         @row.each do |card|
-    #             count += 1 if card.cheat == face_value
-    #         end
-    #     end
-
-    #     count
-    # end
 
     def full?
         @grid.none? do |row|
@@ -44,6 +34,40 @@ class Board
         [a,b]
     end
 
+    def cheat_print
+        print "  0 1 2 3\n"
+
+        row_count = 0
+        @grid.each do |row|
+            print "#{row_count} "
+            row.each do |card|
+                print "#{card.cheat} "
+            end
+            row_count += 1
+            print "\n"
+        end
+
+    end
+
+    def normal_print
+        print "  0 1 2 3\n"
+
+        row_count = 0
+        @grid.each do |row|
+            print "#{row_count} "
+            row.each do |card|
+                if card.face_up == true
+                    print "#{card.cheat} "
+                else 
+                    print "  "
+                end
+            end
+            row_count += 1
+            print "\n"
+        end
+    end
+        
+
 
     def populate
         alpha = ('a'..'z').map { |ele| ele }
@@ -61,16 +85,30 @@ class Board
             end
         end
 
-        self.cheat_print
-        
+        self.normal_print
     end
 
-    def cheat_print
-        @grid.each do |row|
-            row.each do |card|
-                print "#{card.cheat} "
-            end
-            print "\n"
+    def won?
+        @grid.all? do |row|
+            row.all? {|card| card.face_up }
+        end
+    end
+
+    def reveal(pos) ###(pos1 is row, pos2 is col)
+        a,b = pos
+        card = @grid[a][b]
+        if card.face_up == false
+            card.reveal
+            card.cheat
+        end
+    end
+
+     def hide(pos)
+        a,b = pos
+        card = @grid[a][b]
+        if card.face_up == true
+            card.hide
+            card.cheat
         end
     end
 
