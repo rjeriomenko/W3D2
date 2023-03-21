@@ -7,7 +7,7 @@ class Board
 
     def scan?(face_value)
         @grid.any? do |row|
-            row.any? {|card| card.cheat == face_value}
+            row.any? {|card| card != nil && card.cheat == face_value}
         end
     end
 
@@ -23,14 +23,14 @@ class Board
     # end
 
     def full?
-        @grid.any? do |row|
+        @grid.none? do |row|
             row.any? {|ele| ele == nil }
         end
     end
 
     def add(pos, face_value)
         a,b = pos
-        if @grid[a][b] == []
+        if @grid[a][b] == nil
             @grid[a][b] = Card.new(face_value)
             true
         else
@@ -47,7 +47,6 @@ class Board
 
     def populate
         alpha = ('a'..'z').map { |ele| ele }
-        p alpha
 
         until self.full?
             letter = alpha.sample
@@ -62,8 +61,19 @@ class Board
             end
         end
 
-        p @grid
+        self.cheat_print
+        
     end
+
+    def cheat_print
+        @grid.each do |row|
+            row.each do |card|
+                print "#{card.cheat} "
+            end
+            print "\n"
+        end
+    end
+
 
 end
 
